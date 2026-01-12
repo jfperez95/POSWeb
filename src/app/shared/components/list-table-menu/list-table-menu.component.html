@@ -23,7 +23,7 @@
         <ng-container *ngFor="let item of items">
 
             <a (click)="setFilter(item)" *ngIf="item.type === 'link'" @fadeInRight [class.bg-hover]="isActive(item.id)"
-                [class.text-primary-500]="isActive(item.id)" class="list-item mt-2 no-underline flex items-center h-10"
+                [class.text-primary]="isActive(item.id)" class="list-item mt-2 no-underline flex items-center h-10"
                 matRipple>
                 <ic-icon [icon]="item.icon" [ngClass]="item.classes?.icon" class="ltr:mr-3 rtl:ml-3"
                     [size]="item.size ? item.size : '24px'"></ic-icon>

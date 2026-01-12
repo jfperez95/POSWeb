@@ -8,8 +8,9 @@ import { componentSettings } from './category-list-config';
 import { CategoryApi } from 'src/app/response/Category/category.response';
 import { DateFilter } from '@shared/functions/actions';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { CategoryManageComponent } from '../category-manage/category-manage.component';
 import Swal from 'sweetalert2';
+import { FiltersBox, SearchOptions } from '@shared/models/search-options.interface';
+import { CategoryManageComponent } from '../category-manage/category-manage.component';
 
 @Component({
   selector: 'vex-category-list',
@@ -39,9 +40,8 @@ export class CategoryListComponent implements OnInit {
 
   
 
-  setData(data: any = null){
-    this.component.filters.stateFilter = data.value
-    this.component.menuOpen = false
+  setData(category: any){
+    this.component.filters.stateFilter = category?.value ?? null
     this.formatGetInputs()
   }
 
@@ -50,7 +50,7 @@ export class CategoryListComponent implements OnInit {
       numFilter: 0,
       textFilter: "",
       stateFilter: null,
-      starDate: null,
+      startDate: null,
       endDate: null
     }
 
@@ -64,16 +64,17 @@ export class CategoryListComponent implements OnInit {
     }
 
     if(this.component.filters.startDate != "" && this.component.filters.endDate != ""){
-      inputs.starDate = this.component.filters.startDate
+      inputs.startDate = this.component.filters.startDate
       inputs.endDate = this.component.filters.endDate
     }
 
-    this.component.getInputs = inputs
+    // Crear un nuevo objeto para que Angular detecte el cambio
+    this.component.getInputs = { ...inputs }
   }
 
-  search(data: any){
+  search(data: FiltersBox){
     this.component.filters.numFilter = data.searchValue
-    this.component.filters.textFilter = data.searchString
+    this.component.filters.textFilter = data.searchData
     this.formatGetInputs()
   }
 

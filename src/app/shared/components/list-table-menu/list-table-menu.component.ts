@@ -48,8 +48,12 @@ export class ListTableMenuComponent implements OnInit {
     }
 
     setCurrentFilter(categoryNumber: number) {
-        let currentCategory = this.items.find((category) => category.value == categoryNumber);
-        this.activeCategory = currentCategory.id;
+        if (this.items && categoryNumber !== null && categoryNumber !== undefined) {
+            const currentCategory = this.items.find((category) => category.value === categoryNumber);
+            if (currentCategory && currentCategory.id) {
+                this.activeCategory = currentCategory.id;
+            }
+        }
     }
 
     isActive(category: ListTableMenu['id']) {
