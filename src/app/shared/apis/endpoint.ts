@@ -1,3 +1,5 @@
+import { HttpHeaders } from "@angular/common/http"
+
 export const endpoint = {
     //Category Module
     LIST_CATEGORIES: 'Category',
@@ -5,5 +7,14 @@ export const endpoint = {
     CATEGORY_BY_ID: 'Category/',
     CATEGORY_REGISTER: 'Category/Register/',
     CATEGORY_REMOVE: 'Category/Remove/',
-    CATEGORY_EDIT: 'Category/Edit/'
+    CATEGORY_EDIT: 'Category/Edit/',
+
+    //AUTH MODULE
+    GENERATE_TOKEN: 'User/Generate/Token'
+}
+
+export const httpOptions = {
+    headers : new HttpHeaders({
+        "Content-Type": "application/json"
+    })
 }
