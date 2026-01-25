@@ -20,6 +20,7 @@ import icNotificationsOff from '@iconify/icons-ic/twotone-notifications-off';
 import { Icon } from '@visurel/iconify-angular';
 import { PopoverRef } from '../../../../components/popover/popover-ref';
 import { MsalService } from '@azure/msal-angular';
+import { AuthService } from 'src/app/pages/auth/services/auth.service';
 
 export interface OnlineStatus {
   id: 'online' | 'away' | 'dnd' | 'offline';
@@ -113,10 +114,15 @@ export class ToolbarUserDropdownComponent implements OnInit {
   username: string;
   
   constructor(private cd: ChangeDetectorRef,
-        private popoverRef: PopoverRef<ToolbarUserDropdownComponent>) { }
+        private popoverRef: PopoverRef<ToolbarUserDropdownComponent>,
+      private authService: AuthService) { }
 
   ngOnInit() {
-    this.username = 'Adrián M Valencia' //localStorage.getItem('username');
+    const token = localStorage.getItem("token");
+    if(!token){return ''}
+
+    var dataUser = JSON.parse(atob(token.split('.')[1]))
+    this.username = dataUser.family_name;
   }
 
   setStatus(status: OnlineStatus) {
@@ -125,7 +131,7 @@ export class ToolbarUserDropdownComponent implements OnInit {
   }
 
   close() {
-      localStorage.removeItem('userToken');
+      this.authService.logout();
       this.popoverRef.close();
   }
   

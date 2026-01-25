@@ -42,7 +42,7 @@ export class MenuComponent implements OnInit {
 
   setFilter(item: MenuItems){
     if (item.id) {
-      this.activeItem = item.id;
+    this.activeItem = item.id;
     }
     return this.filterChange.emit(item.value);
   }

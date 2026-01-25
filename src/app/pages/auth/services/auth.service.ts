@@ -22,8 +22,9 @@ export class AuthService {
     this.user = new BehaviorSubject<ApiResponse>(JSON.parse(localStorage.getItem("token")))
   }
 
-  login(req: Login): Observable<ApiResponse>{
-    const requestUrl = `${env.api}${endpoint.GENERATE_TOKEN}`
+  login(req: Login, authType: string): Observable<ApiResponse>{
+    localStorage.setItem("authType", "Interno");
+    const requestUrl = `${env.api}${endpoint.LOGIN}?authType=${authType}`
     return this.http.post<ApiResponse>(requestUrl, req, httpOptions).pipe(
       map((res:ApiResponse) => {
         if(res.isSuccess){
@@ -33,5 +34,25 @@ export class AuthService {
         return res;
       })
     );
+  }
+
+  loginWithGoogle(credential: string, authType:string):Observable<ApiResponse>{
+    localStorage.setItem("authType", "Externo");
+    const requestUrl = `${env.api}${endpoint.LOGIN_GOOGLE}?authType=${authType}`
+    return this.http.post<ApiResponse>(requestUrl, JSON.stringify(credential), httpOptions).pipe(
+      map((res: ApiResponse) =>{
+        if(res.isSuccess){
+          localStorage.setItem("token", JSON.stringify(res.data));
+          this.user.next(res.data);
+        }
+        return res;
+      })
+    )
+  }
+
+  logout(){
+    localStorage.clear();
+    this.user.next(null);
+    window.location.reload();
   }
 }

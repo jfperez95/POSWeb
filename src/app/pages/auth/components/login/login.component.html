@@ -5,11 +5,13 @@
         </div>
         <h2>Iniciar Sesión</h2>
         <h3>Bienvenido a tu Sisitema de Ventas</h3>
+        <app-login-google></app-login-google>
+        <br>
         <form [formGroup]="form" class="login-form" (ngSubmit)="login()">
             <mat-form-field appearance="outline" class="textbox">
-                <mat-label>Usuario</mat-label>
-                <input matInput formControlName="username">
-                <mat-error *ngIf="form.get('username').hasError('required')">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="form.get('email').hasError('required')">
                     Campo Usuario es requerido
                 </mat-error>
             </mat-form-field>

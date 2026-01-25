@@ -5,11 +5,13 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from '@shared/shared.module';
 import { OverlayModule } from "@angular/cdk/overlay";
+import { LoginGoogleComponent } from './components/login-google/login-google.component';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LoginGoogleComponent
   ],
   imports: [
     CommonModule,
